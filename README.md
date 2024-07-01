@@ -162,8 +162,11 @@ How is all the electronics connected? Describe all the wiring, good if you can s
 - *Electrical calculations
 #
 <img src=Images/Kopplingar_Visuellt.png>
+I missplaced some of the components in this picture.
 
-<img src=Images/PicoW-A4-Pinout.png>
+TODO lägg in bild på min koppling.
+
+<img src=Images/Kopplingar_Visuellt1.png>
 
 ## Chosen platform
 Describe your choice of platform. If you have tried different platforms it can be good to provide a comparison.
@@ -177,6 +180,15 @@ I started the project with Adafruit IO as my MQTT broker and visual provider. Wh
 
 ## The code
 Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here, focus on the core functionalities. Have you done a specific function that does a calculation, or are you using clever function for sending data on two networks? Or, are you checking if the value is reasonable etc. Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
+#
+The code files provided in this project serve the purpose of collecting sensor data, establishing a connection to Wi-Fi, and transmitting the data to an MQTT broker.
+
+- `main.py` contains the core functionalities of collecting and sending data to the broker.
+- `lib/keys.py` stores the credentials and configurations related to Wi-Fi and MQTT.
+- `lib/mqtt.py` provides the implementation of the MQTT client.
+- `lib/wifiConnection.py` handles the Wi-Fi connection.
+
+`mqtt.py`, `wifiConnection.py`, was taken from course github repo.
 
 ## Data transmission and connectivity
 How is the data transmitted to the internet or local server? Describe the package format. All the different steps that are needed in getting the data to your end-point. Explain both the code and choice of wireless protocols.

@@ -2,16 +2,18 @@
 
 <p align="center">
   <img src="Images/DALLE_illustration_of_IoT.webp" alt="DALLE genererad bild" width="500">
+  
+  Image is generated with DALL*E
 </p>
 
 <p align="center">
-  By: <a href="https://github.com/dwov">David P.</a> - Student ID: dp222nr
+  By: <a href="https://github.com/dwov">David Permlid.</a> - Student ID: dp222nr
 </p>
 
 ## Overview
-This is a IoT project for the course *Introduction to Applied IoT* at *Linnaeus University*.  
+This is a IoT project for the course *Introduction to Applied IoT* at *Linneus University*.  
 
-The goal of this project is to monitor temperature, humidity, and light levels in a room, with a potential future goal of automating my existing smart home. The project utilizes a Raspberry Pi Pico with two temperature sensors (one analog and one digital) and a photoresistor. The device will take readings every 10 seconds and send to a locally hosted MQTT broker and displayed with NODE-RED, alternatively only using Adafruit IO (easy mode).
+The purpose of this project is to monitor temperature, humidity, and light levels in a room, with the potential future goal of automating existing smart home appliances. The project utilizes a Raspberry Pi Pico and some sensors to read and send data to a **MQTT** Broker hosted locally on computer of choice, where the data then will be displayed in **NODE-RED**.
 
 Q: **How much time will this take to make?**  
 A: Approximately 5-6 hours

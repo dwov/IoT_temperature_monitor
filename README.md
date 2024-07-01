@@ -163,24 +163,27 @@ I did not have access to a seperate computer and do not want to install Linux as
     - Select "Allow the connection", hit next and select all (Domain, Private, Public).
     - Hit next and give it a name like ``"WSL 1883"`` so it's easy to remember and find.
 
+Now we are finished with this section.
+
 ## Putting everything together
 How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
 
 - Circuit diagram (can be hand drawn)
 - *Electrical calculations
 #
-<img src=Images/Kopplingar_Visuellt.png width=700>
+<img src=Images/Kopplingar_Visuellt.png>
 
-<img src=Images/PicoW-A4-Pinout.png width=700>
+<img src=Images/PicoW-A4-Pinout.png>
 
 ## Chosen platform
 Describe your choice of platform. If you have tried different platforms it can be good to provide a comparison.
-Comment
 
 Is your platform based on a local installation or a cloud? Do you plan to use a paid subscription or a free? Describe the different alternatives on going forward if you want to scale your idea.
 
 - Describe platform in terms of functionality
 - *Explain and elaborate what made you choose this platform
+
+I started the project with Adafruit IO as my MQTT broker and visual provider. While Adafruit was easy to both use and setup I felt that I wanted to challenge myself a little more so I went for a local installation. With Node-RED as my visualization I have so much more freedom and customizability with both functionality and
 
 ## The code
 Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here, focus on the core functionalities. Have you done a specific function that does a calculation, or are you using clever function for sending data on two networks? Or, are you checking if the value is reasonable etc. Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
@@ -192,6 +195,8 @@ How is the data transmitted to the internet or local server? Describe the packag
 - Which wireless protocols did you use (WiFi, LoRa, etc …)?
 - Which transport protocols were used (MQTT, webhook, etc …)
 - *Elaborate on the design choices regarding data transmission and wireless protocols. That is how your choices affect the device range and battery consumption.
+
+The project uses a locally hosted MQTT broker, but it is possible to make it work over the internet with some further tinkering if wanted.
 
 ## Data presentation
 Describe the presentation part. How is the dashboard built? How long is the data preserved in the database?

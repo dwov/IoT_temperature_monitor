@@ -13,7 +13,7 @@
 ## Overview
 This is an IoT project for the course *Introduction to Applied IoT* at *Linneus University*.  
 
-The purpose of this project is to monitor temperature, humidity, and light levels in a room, with the potential future goal of automating existing smart home appliances. The project utilizes a Raspberry Pi Pico and sensors to read and send data to a **MQTT** Broker hosted locally on computer of choice, where the data then will be displayed in **NODE-RED**.
+The purpose of this project is to monitor temperature, humidity, and light levels in a room, with the potential future goal of automating existing smart home appliances. The project utilizes a Raspberry Pi Pico and sensors to read and send data to a **MQTT** Broker hosted locally on computer of choice, where the data then will be displayed in **Node-RED**.
 
 Q: **How much time will this take to make?**  
 A: Approximately 5-6 hours
@@ -65,9 +65,9 @@ How is the device programmed. Which IDE are you using. Describe all steps from f
 
 https://hackmd.io/@lnu-iot/rkiTJj8O9
 
-### Getting Started
-To develop and run the code on the Raspberry Pi Pico on a Windows computer using Visual Studio Code, do these steps:
-1. **Download and Install [Node.js LTS](https://nodejs.org/en/)**
+### Getting Started and Programming the Raspberry Pi Pico WH
+To develop and run the code on the Raspberry Pi Pico on a Windows computer using Visual Studio Code, you will need to:
+1. **Download and Install [Node.js LTS](https://Nodejs.org/en/)**
 2. **Download and Install [Visual Studio Code](https://code.visualstudio.com/Download)**
 3. **Download and Install Pymakr**
 
@@ -79,6 +79,97 @@ To develop and run the code on the Raspberry Pi Pico on a Windows computer using
 - A new drive should pop-up in file manager called **RPI-RP2**, copy and paste the firmware-file there.
 - The device should now automatically disconnect from your computer.
 - Replug the USB cable (without holding the BOOTSEL button). And voila!
+
+If you have trouble setting things up or dont know how to start a project, I advice you to check the course's guides for [Installing VS Code and Pymakr](https://hackmd.io/@lnu-iot/rkiTJj8O9) and [Updating firmware of Pi Pico W + Test run code](https://hackmd.io/@lnu-iot/rkFw7gao_#Visual-Studio-Code) and also [Basic code structure](https://hackmd.io/@lnu-iot/B1T1_KM83)  
+
+### Ubuntu Server and Mosquitto MQTT Setup
+I did not have access to a seperate computer and do not want to install Linux as the main operating system at the time of doing this project so I had to improvise. I knew that Windows 11 could run virtual Linux with [WSL](https://learn.microsoft.com/en-us/windows/wsl/). So with that in mind I set it up on my laptop in a virutal Linux environment. (Which was a fight). This choice was made because I could not get Mosquitto MQTT to work directly on windows.
+
+*If you want to run it natively on a seperate computer follow these steps from a previous student of the course. [HERE](https://github.com/Aleij/Smart_Horticulture/blob/main/README.md#ubuntu-server-setup)*  
+*Another side-note: If you want to use Adafruit IO, you can skip this setup part and check out [this tutorial](https://hackmd.io/@lnu-iot/r1yEtcs55) on how to connect to Adafruit*
+
+#
+1. **Getting Setup with Ubuntu WSL**
+    - Install WSL by following Microsofts guide linked above. Then Install Ubuntu from [Microsoft Store](https://www.microsoft.com/store/productId/9PDXGNCFSCZV?ocid=pdpshare).
+    - Launch Ubuntu and a Termial window should pop-up, promting you to create an admin user. When successfull, make sure to update the software package.
+    ```shell
+    $ sudo apt update -y
+    $ sudo apt upgrade -y
+    ```
+2. **Installing Mosquitto MQTT Broker**
+    - In the Ubuntu termial window type:
+    ```shell
+    $ sudo apt install -y mosquitto mosquitto-clients
+    ```
+    - Enable autostart at boot.
+    ```shell
+    $ sudo systemctl enable mosquitto
+    ```
+    - Check Mosquitto version and support
+    ```shell
+    $ sudo mosquitto -h
+    ```
+    - You can start mosquitto with either
+    ```shell
+    $ sudo systemctl start mosquitto
+    "or"
+    $ sudo mosquitto
+    ```
+    We will use the latter one with some flags to specify a config file and run it in verbose mode (basically a debug mode where it prints more information).
+    - To do this we will need a configuration file. I had trouble modifiying the default configuration so I created a new one in the conf.d file in the Mosquitto folder.  
+    Lets create the file with,
+    ```shell
+    $ sudo touch /etc/mosquitto/conf.d/custom.conf
+    "then type,"
+    $ sudo nano /etc/mosquitto/conf.d/custom.conf
+    "to edit the file."
+    ```
+    - In this file we want to add these lines
+    ```shell
+    listener 1883
+    allow_anonymous true
+    # The path to the usernames and passwords file
+    password_file /etc/mosquitto/passwd
+    # Give authorization access to specific topic to each user
+    acl_file /etc/mosquitto/aclfile
+    ```
+    - Press ctrl + X, then ctrl + Y and then ENTER to save and exit.
+
+    - Now create some users and give them a password,
+    ```shell
+    $ sudo mosquitto_passwd  -c /etc/mosquitto/passwd admin
+    $ sudo mosquitto_passwd  /etc/mosquitto/passwd myUser
+    "give mosquitto ownership"
+    $ sudo chown mosquitto:mosquitto /etc/mosquitto/passwd
+    ```
+    - Now we need to edit/create a ACL file, create the file like above and place it ```/etc/mosquitto/aclfile```.
+    - Sudo nano into file and add the following lines,
+    ```shell
+    user admin
+    topic read $SYS/#
+    topic readwrite devices/#
+
+    user myUser
+    topic readwrite devices/#
+    ```
+    - Restart mosquitto with
+    ```shell
+    $ sudo systemctl restart mosquitto
+    ```
+
+    If I was inclear in these steps (which are bascially a straight copy of the provided tutorial) check the [LNU tutorial](https://hackmd.io/@lnu-iot/rJr_nGyq5).
+
+3. **Install Node-RED**
+    - Follow Node-RED's tutorial on how to install it on Windows [HERE](https://Nodered.org/docs/getting-started/windows).
+    - Run Node-RED in a normal terminal window in Windows with ```node-red```
+
+4. **Connect Node-RED to Mosquitto MQTT**  
+    When starting Node-RED it should give you the address and port to use for configuration, and since we are running this on one machine we can use ```localhost``` as our address which simplifies things alot (This is not the case later for Pi Pico).
+    - The default port if ```1880```, use this to open up Node-RED's configuration page by typing ```localhost:1880``` in to your favorite browsers addressbar.
+    - Add an ``"mqtt-in"`` and a ``"Debug"`` node to your flow.
+    - Follow [this guide](https://hackmd.io/@lnu-iot/rJr_nGyq5#Connecting-Node-Red-to-Mosquitto-MQTT-Broker) until you've finished step 5.
+
+5. **Now to the fun part of making this work for the Pi Pico**
 
 ## Putting everything together
 How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?

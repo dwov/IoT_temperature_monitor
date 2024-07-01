@@ -11,47 +11,49 @@
 </p>
 
 ## Overview
-This is a IoT project for the course *Introduction to Applied IoT* at *Linneus University*.  
+This is an IoT project for the course *Introduction to Applied IoT* at *Linneus University*.  
 
-The purpose of this project is to monitor temperature, humidity, and light levels in a room, with the potential future goal of automating existing smart home appliances. The project utilizes a Raspberry Pi Pico and some sensors to read and send data to a **MQTT** Broker hosted locally on computer of choice, where the data then will be displayed in **NODE-RED**.
+The purpose of this project is to monitor temperature, humidity, and light levels in a room, with the potential future goal of automating existing smart home appliances. The project utilizes a Raspberry Pi Pico and sensors to read and send data to a **MQTT** Broker hosted locally on computer of choice, where the data then will be displayed in **NODE-RED**.
 
 Q: **How much time will this take to make?**  
 A: Approximately 5-6 hours
 
 ## Objective
-### Why did I choose this project?
-Great question!  
-I wanted a way to monitor the environment in my apartment, and in the future, even automate my current smart home where I have some smart appliances like bulbs and fan. I want to be even lazier than to speak to my Google Assistant asking it to toggle the lights or turn on/off the fan. This led me to create this project that could provide necessary data to automate my life.
+The Goal: Monitor and Automate My Apartment  
 
-### Project purpose
-I've mentioned this already, but I also wanted to explore and familiarize myself with the basics of IoT, IoT communications, and DIY projects at home. Since starting this course/project, I've come up with interesting ideas for future projects. Stay tuned for updates on GitHub!
+I aim to monitor the environment in my one-room apartment and eventually automate my existing smart home setup, which includes some lights and a fan. I went for a locally self-hosted solution to increase security and remove limitations of free version of ex. *Adafruit*. This project provided an opportunity to delve into IoT technologies and hands-on DIY projects.
+
+Exploring IoT basics, communications, and home automation has always intrigued me, but I never had the push to start. This course kickstarted my journey, sparking various ideas for future projects. 
+
+*Stay tuned for updates on GitHub!*
 
 ### Project insights
-This project and course have provided new knowledge about basic IoT concepts and connectivity. It also came with challenges, particularly in server-side setup, but has been a rewarding experience.
+This project and course have provided me with new knowledge about IoT concepts and IoT connectivity. But it has also come with some challenges, particularly in server-side setup, but it has been a rewarding experience nonetheless.
 
-## Material
+## Materials
 ### List of Material Needed, Including Description, Price, and Where to Buy
 
-**Disclaimer:** The materials used in this project were purchased as part of the [Start Kit - Applied IoT at Linnaeus University](https://www.electrokit.com/lnu-starter). Not all components are used, so here are the essentials.
+**Disclaimer:** The materials used in this project were purchased as part of the [Start Kit - Applied IoT at Linnaeus University](https://www.electrokit.com/lnu-starter). Not all components are used, so here are the components used.
 
 | Image | Description | Where | Price |
 | ------------- | ------------- | ------------- | ------------- |
-| <img src="images/piPicoWH.jpg" width="150"> | Raspberry Pi Pico WH | [electrokit](https://www.electrokit.com/raspberry-pi-pico-wh) | 109 SEK |
-| <img src="images/kopplingsBrada.jpg" width="150"> | Breadboard | [electrokit](https://www.electrokit.com/kopplingsdack-840-anslutningar) | 69 SEK |
-| <img src="images/jumperWire.jpg" width="150"> | Jumper wire M/M | [electrokit](https://www.electrokit.com/labbsladd-20-pin-15cm-hane/hane) | 29 SEK |
-| <img src="images/photoresistor.jpg" width="150"> | Photoresistor | [electrokit](https://www.electrokit.com/fotomotstand-cds-4-7-kohm) | 8 SEK |
-| <img src="images/mcp9700.jpg" width="150"> | MCP9700 | [electrokit](https://www.electrokit.com/mcp9700-to-92-temperaturgivare) | 12 SEK |
-| <img src="images/dht11.jpg" width="150"> | DHT11 | [electrokit](https://www.electrokit.com/digital-temperatur-och-fuktsensor-dht11) | 49 SEK |
+| <img src="Images/piPicoWH.jpg" width="150"> | Raspberry Pi Pico WH | [electrokit](https://www.electrokit.com/raspberry-pi-pico-wh) | 109 SEK |
+| <img src="Images/kopplingsBrada.jpg" width="150"> | Breadboard | [electrokit](https://www.electrokit.com/kopplingsdack-840-anslutningar) | 69 SEK |
+| <img src="Images/jumperWire.jpg" width="150"> | Jumper wire M/M | [electrokit](https://www.electrokit.com/labbsladd-20-pin-15cm-hane/hane) | 29 SEK |
+| <img src="Images/photoresistor.jpg" width="150"> | Photoresistor | [electrokit](https://www.electrokit.com/fotomotstand-cds-4-7-kohm) | 8 SEK |
+| <img src="Images/mcp9700.jpg" width="150"> | MCP9700 | [electrokit](https://www.electrokit.com/mcp9700-to-92-temperaturgivare) | 12 SEK |
+| <img src="Images/dht11.jpg" width="150"> | DHT11 | [electrokit](https://www.electrokit.com/digital-temperatur-och-fuktsensor-dht11) | 49 SEK |
+| 10kΩ Resistor |  | Electronics store |  |
 | Micro-USB | Cable | Anywhere |  |
 
 \* All prices adjusted as of 2024-06-30 
 
-- **Raspberry Pi Pico WH:** A microcontroller board based on the Raspberry Pi Foundation's RP2040 chip, providing a cost-effective and powerful solution for IoT projects.
+- **Raspberry Pi Pico WH:** A microcontroller board based on Raspberry Pi's RP2040 chip, providing a cost-effective solution for DIY IoT projects.
 - **Breadboard:** A reusable solderless prototyping board that allows for easy circuit experimentation and component connections.
-- **Jumper wire M/M:** Male-to-male jumper wires for connecting components on a breadboard or other prototyping platforms.
+- **Jumper wire M/M:** Male-to-male jumper wires for connecting components on a breadboard.
 - **Photoresistor:** A light-sensitive resistor that changes its resistance based on the intensity of light.
 - **MCP9700:** A temperature sensor that provides analog output proportional to the temperature.
-- **Micro-USB Cable:** A standard cable used for connecting devices with a micro-USB port.
+- **DHT11:** A temperature and humidity sensor that provides digital output.
 
 ## Computer setup
 How is the device programmed. Which IDE are you using. Describe all steps from flashing the firmware, installing plugins in your favorite editor. How flashing is done on MicroPython. The aim is that a beginner should be able to understand.
@@ -60,6 +62,8 @@ How is the device programmed. Which IDE are you using. Describe all steps from f
 - How the code is uploaded
 - Steps that you needed to do for your computer. Installation of Node.js, extra drivers, etc.
 #
+
+https://hackmd.io/@lnu-iot/rkiTJj8O9
 
 ### Getting Started
 To develop and run the code on the Raspberry Pi Pico on a Windows computer using Visual Studio Code, do these steps:
@@ -75,17 +79,6 @@ To develop and run the code on the Raspberry Pi Pico on a Windows computer using
 - A new drive should pop-up in file manager called **RPI-RP2**, copy and paste the firmware-file there.
 - The device should now automatically disconnect from your computer.
 - Replug the USB cable (without holding the BOOTSEL button). And voila!
-
-
-data
-
-- **Node.js:** I Have No Clue
-- **Visual Studio Code (VS Code):** A powerful editor for writing all sorts of code, but in this case writing and running MicroPython code on the Raspberry Pi Pico.
-- **Pymakr Extenstion:** An extenstion for VS Code that allows you to interact with MicroPython devices.
-- **MicroPython Firmware:** The firmware that enables Python programming on microcontroller boards like the Raspberry Pi Pico.
-
-### Step-by-Step
-**NOTE:** I will only go over how I setup this with Windows 11, will update in the future if there is interest.
 
 ## Putting everything together
 How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?

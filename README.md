@@ -56,14 +56,6 @@ This project and course have provided me with new knowledge about IoT concepts a
 - **DHT11:** A temperature and humidity sensor that provides digital output.
 
 ## Computer setup
-How is the device programmed. Which IDE are you using. Describe all steps from flashing the firmware, installing plugins in your favorite editor. How flashing is done on MicroPython. The aim is that a beginner should be able to understand.
-
-- Chosen IDE
-- How the code is uploaded
-- Steps that you needed to do for your computer. Installation of Node.js, extra drivers, etc.
-#
-
-https://hackmd.io/@lnu-iot/rkiTJj8O9
 
 ### Getting Started and Programming the Raspberry Pi Pico WH
 To develop and run the code on the Raspberry Pi Pico on a Windows computer using Visual Studio Code, you will need to:
@@ -162,8 +154,6 @@ I did not have access to a seperate computer and do not want to install Linux as
     - Select "TCP" and enter ``1883`` in "Specific local ports:". Hit next.
     - Select "Allow the connection", hit next and select all (Domain, Private, Public).
     - Hit next and give it a name like ``"WSL 1883"`` so it's easy to remember and find.
-
-Now we are finished with this section.
 
 ## Putting everything together
 How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?

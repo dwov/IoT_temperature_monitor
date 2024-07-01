@@ -1,7 +1,7 @@
 <h1 align="center">Self hosted IoT Temperature and Light level monitor</h1>
 
 <p align="center">
-  <img src="Images/DALLE_illustration_of_IoT.webp" width="500">
+  <img src="Images/DALLE_illustration_of_IoT.webp" alt="DALLE genererad bild" width="500">
 </p>
 
 <p align="center">

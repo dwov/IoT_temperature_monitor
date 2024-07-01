@@ -134,34 +134,11 @@ I did not have access to a seperate computer and do not want to install Linux as
     acl_file /etc/mosquitto/aclfile
     ```
     - Press ctrl + X, then ctrl + Y and then ENTER to save and exit.
-
-    - Now create some users and give them a password,
-    ```shell
-    $ sudo mosquitto_passwd  -c /etc/mosquitto/passwd admin
-    $ sudo mosquitto_passwd  /etc/mosquitto/passwd myUser
-    "give mosquitto ownership"
-    $ sudo chown mosquitto:mosquitto /etc/mosquitto/passwd
-    ```
-    - Now we need to edit/create a ACL file, create the file like above and place it ```/etc/mosquitto/aclfile```.
-    - Sudo nano into file and add the following lines,
-    ```shell
-    user admin
-    topic read $SYS/#
-    topic readwrite devices/#
-
-    user myUser
-    topic readwrite devices/#
-    ```
-    - Restart mosquitto with
-    ```shell
-    $ sudo systemctl restart mosquitto
-    ```
-
-    If I was inclear in these steps (which are bascially a straight copy of the provided tutorial) check the [LNU tutorial](https://hackmd.io/@lnu-iot/rJr_nGyq5).
+    - Now follow [LNU tutorial](https://hackmd.io/@lnu-iot/rJr_nGyq5) for the rest of the setup since nothing is different.
 
 3. **Install Node-RED**
-    - Follow Node-RED's tutorial on how to install it on Windows [HERE](https://Nodered.org/docs/getting-started/windows).
-    - Run Node-RED in a normal terminal window in Windows with ```node-red```
+    - Follow Node-RED's tutorial on how to install it on Windows [HERE](https://Nodered.org/docs/getting-started/windows). (It's short simple steps)
+    - Run Node-RED in a *Powershell* terminal window in Windows with ```node-red```
 
 4. **Connect Node-RED to Mosquitto MQTT**  
     When starting Node-RED it should give you the address and port to use for configuration, and since we are running this on one machine we can use ```localhost``` as our address which simplifies things alot (This is not the case later for Pi Pico).
@@ -169,7 +146,22 @@ I did not have access to a seperate computer and do not want to install Linux as
     - Add an ``"mqtt-in"`` and a ``"Debug"`` node to your flow.
     - Follow [this guide](https://hackmd.io/@lnu-iot/rJr_nGyq5#Connecting-Node-Red-to-Mosquitto-MQTT-Broker) until you've finished step 5.
 
-5. **Now to the fun part of making this work for the Pi Pico**
+5. **Now to the fun part of making this work for the Pi Pico**  
+    Here is where my struggle was for a long time. Since Mosquitto is running in a virtual environment, it has a virtual ethernet adapter (Ethernet adapter vEthernet (WSL (Hyper-V firewall))). Which is visible if you check ``ìpconfig`` in a command prompt. As can be seen, this IPv4 address is not the same as our local network IPv4 address.
+    
+    <img src=Images/cmdIPconf.png width=500>
+    
+    To fix this, we need to link our ip address with a ``portproxy``. [Visual guidance here](https://www.youtube.com/watch?v=yCK3easuYm4) from David Bombal on YouTube.
+    - Open a terminal/powershell as admin and enter the following command,
+    ```powershell
+    netsh interface portproxy add v4tov4 listenport=1883 listenaddress=0.0.0.0 connectport=1883 connectaddress=172.28.112.X
+    ```
+    Change ``connectaddress=X.X.X.X`` to your virtual IPv4 address.
+    - Next up, we need to allow trafic through our firewall. So open firewall settings from control panel and go to "Advanced settings" and select "Inbound Rules".
+    - Click "New Rule..." on the right hand side, and choose "Port" and hit next.
+    - Select "TCP" and enter ``1883`` in "Specific local ports:". Hit next.
+    - Select "Allow the connection", hit next and select all (Domain, Private, Public).
+    - Hit next and give it a name like ``"WSL 1883"`` so it's easy to remember and find.
 
 ## Putting everything together
 How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
@@ -177,7 +169,9 @@ How is all the electronics connected? Describe all the wiring, good if you can s
 - Circuit diagram (can be hand drawn)
 - *Electrical calculations
 #
-![bild](Images/Kopplingar_Visuellt.png)
+<img src=Images/Kopplingar_Visuellt.png width=700>
+
+<img src=Images/PicoW-A4-Pinout.png width=700>
 
 ## Chosen platform
 Describe your choice of platform. If you have tried different platforms it can be good to provide a comparison.

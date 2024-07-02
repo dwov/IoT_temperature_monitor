@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  By: <a href="https://github.com/dwov">David Permlid.</a> - Student ID: dp222nr
+  By: <a href="https://github.com/dwov">David Permlid</a> - Student ID: dp222nr
 </p>
 
 # Overview
@@ -77,10 +77,10 @@ This project and course have provided me with new knowledge about IoT concepts a
 # Computer setup
 
 ## Programming the Raspberry Pi Pico WH
-To develop and run the code on the Raspberry Pi Pico on a Windows computer using Visual Studio Code, you will need to:
+To develop and run the code on the Raspberry Pi Pico, specifically on a Windows computer (I don't have access to other operating system at this moment) using Visual Studio Code, you will need to:
 1. **Download and Install [Node.js LTS](https://Nodejs.org/en/)**
 2. **Download and Install [Visual Studio Code](https://code.visualstudio.com/Download)**
-3. **Download and Install Pymakr**
+3. **Download and Install Pymakr from extensions in VS Code**
 
 ![bild](Images/pymakr_install.png)
 
@@ -93,17 +93,21 @@ To develop and run the code on the Raspberry Pi Pico on a Windows computer using
 
 If you have trouble setting things up or dont know how to start a project, I advice you to check the course's guides for [Installing VS Code and Pymakr](https://hackmd.io/@lnu-iot/rkiTJj8O9) and [Updating firmware of Pi Pico W + Test run code](https://hackmd.io/@lnu-iot/rkFw7gao_#Visual-Studio-Code) and also [Basic code structure](https://hackmd.io/@lnu-iot/B1T1_KM83)  
 
+Great, we are now ready to program our Pi Pico. If you want to experiment with running code, feel free to take a break here.
+
 ## Setting up Ubuntu to Run Mosquitto MQTT Server
-***Disclaimer:*** I did not have access to a seperate computer and do not want to install Linux as the main operating system at the time of doing this project so I had to improvise. I knew that Windows 11 could run Linux in a virutal environment with [WSL](https://learn.microsoft.com/en-us/windows/wsl/). With that knowledge, I set it up on my laptop in a virutal Linux environment because I could not get Mosquitto MQTT to work directly on windows.
+***Disclaimer:*** I did not have access to a seperate computer and did not want to install Linux as the main operating system so I had to improvise. I knew that Windows 11 could run Linux in a virutal environment with [WSL](https://learn.microsoft.com/en-us/windows/wsl/). With that knowledge, I set it up on my laptop in a virutal Linux environment because I could not get Mosquitto MQTT to work directly on Windows.
 
-*If you want to run it natively on a seperate computer follow these steps from a previous student of the course. [HERE](https://github.com/Aleij/Smart_Horticulture/blob/main/README.md#ubuntu-server-setup)*  
-
-*Another side-note: If you want a use simpler solution of Adafruit IO, you can skip this setup part and check out [this tutorial](https://hackmd.io/@lnu-iot/r1yEtcs55) on how to connect to Adafruit*
+*Side-note: If you want a use simpler solution of Adafruit IO, you can skip this setup part and check out [this tutorial](https://hackmd.io/@lnu-iot/r1yEtcs55) on how to connect to Adafruit*
 
 **Choose your way of setup** [Ubuntu Regular Setup](#ubuntu-regular-mosquitto-setup) or [Ubuntu WSL Setup](#ubuntu-wsl-mosquitto-setup)
 
 ### Ubuntu Regular Mosquitto Setup
-To set up the Ubuntu server for running the Mosquitto MQTT protocol and Node Red, follow these steps:
+These steps were taken from a previous student of the course [HERE](https://github.com/Aleij/Smart_Horticulture/blob/main/README.md#ubuntu-server-setup), but are listed below. Thank you, [Aleij](https://github.com/Aleij) (he has a great guide on getting started with GitHub). 
+
+*Note: There are slight variantions in the configuration but choose whichever one you think works best or use trial and error.*
+
+To set up a Ubuntu server for running the Mosquitto MQTT server and Node Red, follow these steps:
 
 1. **Install Ubuntu Server on your old laptop or a dedicated machine.**
 
@@ -174,8 +178,10 @@ To set up the Ubuntu server for running the Mosquitto MQTT protocol and Node Red
     
 
 ### Ubuntu WSL Mosquitto Setup
+This was my way because of logistical difficulties.
+
 1. **Getting Setup with Ubuntu WSL**
-    - Install WSL by following Microsofts guide linked above. Then Install Ubuntu from [Microsoft Store](https://www.microsoft.com/store/productId/9PDXGNCFSCZV?ocid=pdpshare).
+    - Install WSL by following Microsofts [this guide](https://learn.microsoft.com/en-us/windows/wsl/install). Then Install Ubuntu from [Microsoft Store](https://www.microsoft.com/store/productId/9PDXGNCFSCZV?ocid=pdpshare).
     - Launch Ubuntu and a Termial window should pop-up, promting you to create an admin user. When successfull, make sure to update the software package.
     ```shell
     $ sudo apt update -y
@@ -241,7 +247,7 @@ To set up the Ubuntu server for running the Mosquitto MQTT protocol and Node Red
     ```powershell
     netsh interface portproxy add v4tov4 listenport=1883 listenaddress=0.0.0.0 connectport=1883 connectaddress=172.28.112.X
     ```
-    Change ``connectaddress=X.X.X.X`` to your virtual IPv4 address.
+    Change ``connectaddress=X.X.X.X`` to your virtual IPv4 address (most likely starting with 172.X.X.X, like mine).
     - Next up, we need to allow trafic through our firewall. So open firewall settings from control panel and go to "Advanced settings" and select "Inbound Rules".
     - Click "New Rule..." on the right hand side, and choose "Port" and hit next.
     - Select "TCP" and enter ``1883`` in "Specific local ports:". Hit next.
@@ -254,12 +260,27 @@ How is all the electronics connected? Describe all the wiring, good if you can s
 - Circuit diagram (can be hand drawn)
 - *Electrical calculations
 #
+Wiring everything up should be pretty straight forward. Ground to ground, positive to positive and data or reading pins to one of the available `GPIO` pins on the Microcontroller.
+
+**Be sure to read the datasheet for each component to be sure of what leg or pin goes where**
+
+I had a 10kΩ resistor from the kit which was ok to use for the photoresistor.
+We can calculate the voltage that comes out from the photoresistor with a simple voltage divider equation.
+
+<img src=Images/Voltage_Divider_EQ.png width=200>
+$$V_{out} = \frac()$$
+
+\[ V_{out} = V_{in} \times \frac{R_2}{R_1 + R_2} \]
+
+where:
+- \( V_{out} \) is the output voltage
+- \( V_{in} \) is the input voltage
+- \( R_1 \) and \( R_2 \) are the resistances
+
 <img src=Images/Kopplingar_Visuellt.png>
-I missplaced some of the components in this picture.
+I missplaced the resistor in this picture, it should be connected to positive rail not ground rail.
 
-TODO lägg in bild på min koppling.
-
-<img src=Images/Kopplingar_Visuellt1.png>
+<img src=Images/IMG_3016.jpg width=500><img src=Images/IMG_3016.jpg width=500>
 
 # Chosen platform
 Describe your choice of platform. If you have tried different platforms it can be good to provide a comparison.

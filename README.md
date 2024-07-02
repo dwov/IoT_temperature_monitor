@@ -277,9 +277,9 @@ The final connections should look something like this, try and make it prettier 
 
 I missplaced the resistor in this picture, it should be connected to positive rail not ground rail.
 
-<img src=Images/IMG_3016.jpg width=500><img src=Images/IMG_3016.jpg width=500>
+<img src=Images/IMG_3016.jpg width=500>
 
-Here is my development board and all the little things.
+Here is my development board and all the little things connected.
 
 # Chosen platform
 Describe your choice of platform. If you have tried different platforms it can be good to provide a comparison.
@@ -288,30 +288,45 @@ Is your platform based on a local installation or a cloud? Do you plan to use a 
 
 - Describe platform in terms of functionality
 - *Explain and elaborate what made you choose this platform
+#
 
-I started the project with Adafruit IO as my MQTT broker and visual provider. While Adafruit was easy to both use and setup I felt that I wanted to challenge myself a little more so I went for a local installation. With Node-RED as my visualization I have so much more freedom and customizability with both functionality and
+I started the project with my mind set on running everything of my TrueNAS server at my apartmnent. But since it's the summer, I am staying elsewhere and thus I initially went for Adafruit IO as my MQTT broker and visual provider.
+
+While Adafruit was both easy to use and setup I felt that I wanted to challenge myself a little more so I went for a local installation with a future goal to implement this in my home when autumn comes around the corner. I went for the MQTT platform from Mosquitto and Node-RED as my visualization. With this setup I have so much more freedom and customizability with both functionality and looks.
 
 # The code
 Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here, focus on the core functionalities. Have you done a specific function that does a calculation, or are you using clever function for sending data on two networks? Or, are you checking if the value is reasonable etc. Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
 #
-The code files provided in this project serve the purpose of collecting sensor data, establishing a connection to Wi-Fi, and transmitting the data to an MQTT broker.
+The code in this project serve the purpose of establishing a connection to Wi-Fi and MQTT Broker, collecting sensor data, and transmitting the data to the MQTT broker. Every loop the micro controller checks the connection to internet and tries to reconnect if there is a disruption of Wi-Fi connection.
 
 - `main.py` contains the core functionalities of collecting and sending data to the broker.
 - `lib/keys.py` stores the credentials and configurations related to Wi-Fi and MQTT.
-- `lib/mqtt.py` provides the implementation of the MQTT client.
+- `lib/mqtt.py` provides the implementation of the MQTT client, sending and recieving data.
 - `lib/wifiConnection.py` handles the Wi-Fi connection.
 
-`mqtt.py`, `wifiConnection.py`, was taken from course github repo.
+`mqtt.py`, `wifiConnection.py`, was taken from the course github [repo](https://github.com/iot-lnu/pico-w/tree/main).
 
 # Data transmission and connectivity
-How is the data transmitted to the internet or local server? Describe the package format. All the different steps that are needed in getting the data to your end-point. Explain both the code and choice of wireless protocols.
-
-- How often is the data sent?
-- Which wireless protocols did you use (WiFi, LoRa, etc …)?
-- Which transport protocols were used (MQTT, webhook, etc …)
-- *Elaborate on the design choices regarding data transmission and wireless protocols. That is how your choices affect the device range and battery consumption.
-
 The project uses a locally hosted MQTT broker, but it is possible to make it work over the internet with some further tinkering if wanted.
+
+#
+MQTT is a lightweight messaging protocol designed for constrained devices (such as IoT devices) with low-bandwidth, high-latency, or unreliable networks in mind. It uses a PUBLISH-SUBSCRIBE model.
+
+The minimum packet size of a MQTT message is 2 bytes, which means its substancially smaller than a HTTP packet which is minimum of 26 bytes. This leads to less power consumed.
+#
+
+The sensors collected data is transmitted via Wi-Fi to the MQTT Broker using MQTT protocol, described above. I wanted to use MQTT over HTTP because of its lightweight and efficient messaging. To keep power consumption low and reduce overhead.
+
+In this implementation the messages are sent every 10 seconds to reduce unecessary amounts of data being sent. But still keeping it relativly real-time.
+
+Messages recieved by MQTT broker are forwarded to all subsribers like the Node-RED client which recieves the following,
+<p align=center>
+<img src=Images/node-red-subscriptionPUB.png>
+</p>
+and then publishes the "ON" or "OFF" (seen last in the picture) message depending on if there is enough light in the room. (This is mostly a debug feature and to easily change later when implementing into Home Assistant.)
+
+## Node-RED Backend
+<img src=Images/node-red-flow1.png>
 
 # Data presentation
 Describe the presentation part. How is the dashboard built? How long is the data preserved in the database?
@@ -321,9 +336,22 @@ Describe the presentation part. How is the dashboard built? How long is the data
 - *Explain your choice of database.
 - *Automation/triggers of the data.
 
-# Finalizing the design
-Show the final results of your project. Give your final thoughts on how you think the project went. What could have been done in an other way, or even better? Pictures are nice!
+The visualization of data is done using Node-RED dashboard, which can be easily installed in Node-RED menu.
 
-- Show final results of the project
-- Pictures
-- *Video presentation
+My representation looks like this:
+<img src=Images/node-red-visual.png>
+
+# Finalizing the design
+I unfortunatly did not have time or access to my dedicated server, and thus needed to compromise on automation. This has been bumming me out during the whole project but I think I got something to further develop in the coming months. So to summarize, I would not say that the project is not completely finshed yet.
+
+<span style="color: red">TODO:</span> Video presentation.
+
+## Future improvements to be made
+These are some of my thoughts to further improve the functionality and behaviour of the project.
+
+- Make the Pico restart code after crash, if say the MQTT broker goes down. (Right now it will crash and stay there)
+- Add deep sleep functionality, to save power when not reading or sending data.
+- Add some kind of data interval adjustment.
+- Improve security
+- 3D print case (I have a contact but I am waiting for my turn)
+- Make it connect to MQTT broker running in TrueNAS, and automate lights and fan in Home Assitant.

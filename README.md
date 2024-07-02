@@ -329,13 +329,6 @@ and then publishes the "ON" or "OFF" (seen last in the picture) message dependin
 <img src=Images/node-red-flow1.png>
 
 # Data presentation
-Describe the presentation part. How is the dashboard built? How long is the data preserved in the database?
-
-- Provide visual examples on how the dashboard looks. Pictures needed.
-- How often is data saved in the database.
-- *Explain your choice of database.
-- *Automation/triggers of the data.
-
 The visualization of data is done using Node-RED dashboard, which can be easily installed in Node-RED menu.
 
 My representation looks like this:

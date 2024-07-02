@@ -255,32 +255,31 @@ This was my way because of logistical difficulties.
     - Hit next and give it a name like ``"WSL 1883"`` so it's easy to remember and find.
 
 # Putting everything together
-How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
-
-- Circuit diagram (can be hand drawn)
-- *Electrical calculations
-#
 Wiring everything up should be pretty straight forward. Ground to ground, positive to positive and data or reading pins to one of the available `GPIO` pins on the Microcontroller.
 
 **Be sure to read the datasheet for each component to be sure of what leg or pin goes where**
 
 I had a 10kΩ resistor from the kit which was ok to use for the photoresistor.
-We can calculate the voltage that comes out from the photoresistor with a simple voltage divider equation.
-
+We can calculate the voltage from the photoresistor with a simple voltage divider equation. This is mostly for safety since, and is most likely not needed.
 <img src=Images/Voltage_Divider_EQ.png width=200>
-$$V_{out} = \frac()$$
 
-\[ V_{out} = V_{in} \times \frac{R_2}{R_1 + R_2} \]
+$$V_{out} = V_{in} \times \frac{R_2}{R_1 + R_2},$$
 
 where:
-- \( V_{out} \) is the output voltage
-- \( V_{in} \) is the input voltage
-- \( R_1 \) and \( R_2 \) are the resistances
+- $( V_{out} )$ is the output voltage,
+- $( V_{in} )$ is the input voltage,
+- $( R_1 )$ and $( R_2 )$ are the resistances.
+
+##
+The final connections should look something like this, try and make it prettier than this :).
 
 <img src=Images/Kopplingar_Visuellt.png>
+
 I missplaced the resistor in this picture, it should be connected to positive rail not ground rail.
 
 <img src=Images/IMG_3016.jpg width=500><img src=Images/IMG_3016.jpg width=500>
+
+Here is my development board and all the little things.
 
 # Chosen platform
 Describe your choice of platform. If you have tried different platforms it can be good to provide a comparison.

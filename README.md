@@ -10,7 +10,7 @@
   By: <a href="https://github.com/dwov">David Permlid.</a> - Student ID: dp222nr
 </p>
 
-## Overview
+# Overview
 This is an IoT project for the course *Introduction to Applied IoT* at *Linneus University*.  
 
 The purpose of this project is to monitor temperature, humidity, and light levels in a room, with the potential future goal of automating existing smart home appliances. The project utilizes a Raspberry Pi Pico and sensors to read and send data to a **MQTT** Broker hosted locally on computer of choice, where the data then will be displayed in **Node-RED**.
@@ -18,7 +18,7 @@ The purpose of this project is to monitor temperature, humidity, and light level
 Q: **How much time will this take to make?**  
 A: Approximately 5-6 hours
 
-## Table of contents
+# Table of contents
 1. [Overview](#overview) - A brief introduction.
 2. [Objective](#objective) - Overall goal of the project.
 3. [Project Insights](#project-insights) 
@@ -37,7 +37,7 @@ A: Approximately 5-6 hours
 12. [About](#about)
 13. [License](#license)
 
-## Objective
+# Objective
 The Goal: Monitor and Automate My Apartment  
 
 I aim to monitor the environment in my one-room apartment and eventually automate my existing smart home setup, which includes some lights and a fan. I went for a locally self-hosted solution to increase security and remove limitations of free version of ex. *Adafruit*. This project provided an opportunity to delve into IoT technologies and hands-on DIY projects.
@@ -46,11 +46,11 @@ Exploring IoT basics, communications, and home automation has always intrigued m
 
 *Stay tuned for updates on GitHub!*
 
-### Project insights
+## Project insights
 This project and course have provided me with new knowledge about IoT concepts and IoT connectivity. But it has also come with some challenges, particularly in server-side setup, but it has been a rewarding experience nonetheless.
 
-## Materials
-### List of Material Needed, Including Description, Price, and Where to Buy
+# Materials
+## List of Material Needed, Including Description, Price, and Where to Buy
 
 ***Disclaimer:*** The materials used in this project were purchased as part of the [Start Kit - Applied IoT at Linnaeus University](https://www.electrokit.com/lnu-starter). Not all components are used, so here are the components used.
 
@@ -74,9 +74,9 @@ This project and course have provided me with new knowledge about IoT concepts a
 - **MCP9700:** A temperature sensor that provides analog output proportional to the temperature.
 - **DHT11:** A temperature and humidity sensor that provides digital output.
 
-## Computer setup
+# Computer setup
 
-### Programming the Raspberry Pi Pico WH
+## Programming the Raspberry Pi Pico WH
 To develop and run the code on the Raspberry Pi Pico on a Windows computer using Visual Studio Code, you will need to:
 1. **Download and Install [Node.js LTS](https://Nodejs.org/en/)**
 2. **Download and Install [Visual Studio Code](https://code.visualstudio.com/Download)**
@@ -93,7 +93,7 @@ To develop and run the code on the Raspberry Pi Pico on a Windows computer using
 
 If you have trouble setting things up or dont know how to start a project, I advice you to check the course's guides for [Installing VS Code and Pymakr](https://hackmd.io/@lnu-iot/rkiTJj8O9) and [Updating firmware of Pi Pico W + Test run code](https://hackmd.io/@lnu-iot/rkFw7gao_#Visual-Studio-Code) and also [Basic code structure](https://hackmd.io/@lnu-iot/B1T1_KM83)  
 
-### Setting up Ubuntu to Run Mosquitto MQTT Server
+## Setting up Ubuntu to Run Mosquitto MQTT Server
 ***Disclaimer:*** I did not have access to a seperate computer and do not want to install Linux as the main operating system at the time of doing this project so I had to improvise. I knew that Windows 11 could run Linux in a virutal environment with [WSL](https://learn.microsoft.com/en-us/windows/wsl/). With that knowledge, I set it up on my laptop in a virutal Linux environment because I could not get Mosquitto MQTT to work directly on windows.
 
 *If you want to run it natively on a seperate computer follow these steps from a previous student of the course. [HERE](https://github.com/Aleij/Smart_Horticulture/blob/main/README.md#ubuntu-server-setup)*  
@@ -102,7 +102,7 @@ If you have trouble setting things up or dont know how to start a project, I adv
 
 **Choose your way of setup** [Ubuntu Regular Setup](#ubuntu-regular-mosquitto-setup) or [Ubuntu WSL Setup](#ubuntu-wsl-mosquitto-setup)
 
-#### Ubuntu Regular Mosquitto Setup
+### Ubuntu Regular Mosquitto Setup
 To set up the Ubuntu server for running the Mosquitto MQTT protocol and Node Red, follow these steps:
 
 1. **Install Ubuntu Server on your old laptop or a dedicated machine.**
@@ -173,7 +173,7 @@ To set up the Ubuntu server for running the Mosquitto MQTT protocol and Node Red
    - Add listener 1883 and allow_anonymous true
     
 
-# Ubuntu WSL Mosquitto Setup
+### Ubuntu WSL Mosquitto Setup
 1. **Getting Setup with Ubuntu WSL**
     - Install WSL by following Microsofts guide linked above. Then Install Ubuntu from [Microsoft Store](https://www.microsoft.com/store/productId/9PDXGNCFSCZV?ocid=pdpshare).
     - Launch Ubuntu and a Termial window should pop-up, promting you to create an admin user. When successfull, make sure to update the software package.
@@ -248,7 +248,7 @@ To set up the Ubuntu server for running the Mosquitto MQTT protocol and Node Red
     - Select "Allow the connection", hit next and select all (Domain, Private, Public).
     - Hit next and give it a name like ``"WSL 1883"`` so it's easy to remember and find.
 
-## Putting everything together
+# Putting everything together
 How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
 
 - Circuit diagram (can be hand drawn)
@@ -261,7 +261,7 @@ TODO lägg in bild på min koppling.
 
 <img src=Images/Kopplingar_Visuellt1.png>
 
-## Chosen platform
+# Chosen platform
 Describe your choice of platform. If you have tried different platforms it can be good to provide a comparison.
 
 Is your platform based on a local installation or a cloud? Do you plan to use a paid subscription or a free? Describe the different alternatives on going forward if you want to scale your idea.
@@ -271,7 +271,7 @@ Is your platform based on a local installation or a cloud? Do you plan to use a 
 
 I started the project with Adafruit IO as my MQTT broker and visual provider. While Adafruit was easy to both use and setup I felt that I wanted to challenge myself a little more so I went for a local installation. With Node-RED as my visualization I have so much more freedom and customizability with both functionality and
 
-## The code
+# The code
 Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here, focus on the core functionalities. Have you done a specific function that does a calculation, or are you using clever function for sending data on two networks? Or, are you checking if the value is reasonable etc. Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
 #
 The code files provided in this project serve the purpose of collecting sensor data, establishing a connection to Wi-Fi, and transmitting the data to an MQTT broker.
@@ -283,7 +283,7 @@ The code files provided in this project serve the purpose of collecting sensor d
 
 `mqtt.py`, `wifiConnection.py`, was taken from course github repo.
 
-## Data transmission and connectivity
+# Data transmission and connectivity
 How is the data transmitted to the internet or local server? Describe the package format. All the different steps that are needed in getting the data to your end-point. Explain both the code and choice of wireless protocols.
 
 - How often is the data sent?
@@ -293,7 +293,7 @@ How is the data transmitted to the internet or local server? Describe the packag
 
 The project uses a locally hosted MQTT broker, but it is possible to make it work over the internet with some further tinkering if wanted.
 
-## Data presentation
+# Data presentation
 Describe the presentation part. How is the dashboard built? How long is the data preserved in the database?
 
 - Provide visual examples on how the dashboard looks. Pictures needed.
@@ -301,7 +301,7 @@ Describe the presentation part. How is the dashboard built? How long is the data
 - *Explain your choice of database.
 - *Automation/triggers of the data.
 
-## Finalizing the design
+# Finalizing the design
 Show the final results of your project. Give your final thoughts on how you think the project went. What could have been done in an other way, or even better? Pictures are nice!
 
 - Show final results of the project

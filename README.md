@@ -33,7 +33,7 @@ This project and course have provided me with new knowledge about IoT concepts a
 ## Materials
 ### List of Material Needed, Including Description, Price, and Where to Buy
 
-**Disclaimer:** The materials used in this project were purchased as part of the [Start Kit - Applied IoT at Linnaeus University](https://www.electrokit.com/lnu-starter). Not all components are used, so here are the components used.
+***Disclaimer:*** The materials used in this project were purchased as part of the [Start Kit - Applied IoT at Linnaeus University](https://www.electrokit.com/lnu-starter). Not all components are used, so here are the components used.
 
 | Image | Description | Where | Price |
 | ------------- | ------------- | ------------- | ------------- |
@@ -74,13 +74,87 @@ To develop and run the code on the Raspberry Pi Pico on a Windows computer using
 
 If you have trouble setting things up or dont know how to start a project, I advice you to check the course's guides for [Installing VS Code and Pymakr](https://hackmd.io/@lnu-iot/rkiTJj8O9) and [Updating firmware of Pi Pico W + Test run code](https://hackmd.io/@lnu-iot/rkFw7gao_#Visual-Studio-Code) and also [Basic code structure](https://hackmd.io/@lnu-iot/B1T1_KM83)  
 
-### Ubuntu Server and Mosquitto MQTT Setup
-I did not have access to a seperate computer and do not want to install Linux as the main operating system at the time of doing this project so I had to improvise. I knew that Windows 11 could run virtual Linux with [WSL](https://learn.microsoft.com/en-us/windows/wsl/). So with that in mind I set it up on my laptop in a virutal Linux environment. (Which was a fight). This choice was made because I could not get Mosquitto MQTT to work directly on windows.
+### Setting up Ubuntu to Run Mosquitto MQTT Server
+***Disclaimer:*** I did not have access to a seperate computer and do not want to install Linux as the main operating system at the time of doing this project so I had to improvise. I knew that Windows 11 could run Linux in a virutal environment with [WSL](https://learn.microsoft.com/en-us/windows/wsl/). With that knowledge, I set it up on my laptop in a virutal Linux environment because I could not get Mosquitto MQTT to work directly on windows.
 
 *If you want to run it natively on a seperate computer follow these steps from a previous student of the course. [HERE](https://github.com/Aleij/Smart_Horticulture/blob/main/README.md#ubuntu-server-setup)*  
-*Another side-note: If you want to use Adafruit IO, you can skip this setup part and check out [this tutorial](https://hackmd.io/@lnu-iot/r1yEtcs55) on how to connect to Adafruit*
 
-#
+*Another side-note: If you want a use simpler solution of Adafruit IO, you can skip this setup part and check out [this tutorial](https://hackmd.io/@lnu-iot/r1yEtcs55) on how to connect to Adafruit*
+
+**Choose your way of setup** [Ubuntu Regular Setup](#ubuntu-regular-mosquitto-setup) or [Ubuntu WSL Setup](#ubuntu-wsl-mosquitto-setup)
+
+#### Ubuntu Regular Mosquitto Setup
+To set up the Ubuntu server for running the Mosquitto MQTT protocol and Node Red, follow these steps:
+
+1. **Install Ubuntu Server on your old laptop or a dedicated machine.**
+
+   - Download the Ubuntu Server ISO from the official [website](https://ubuntu.com/download/server).
+   - Create a bootable USB drive using software like Rufus or BalenaEtcher.
+   - Boot your laptop or dedicated machine from the USB drive and follow the installation wizard to install Ubuntu Server.
+   - Create an admin user and password.
+   - Update the software package.
+     ```powershell
+     sudo apt update -y
+     sudo apt upgrade -y
+     ```
+
+2. **Install Mosquitto MQTT broker on the Ubuntu server for communication between devices.**
+
+   - Open PowerShell on your Windows computer.
+   - Connect to the Ubuntu server via SSH:
+     ```powershell
+     ssh ubuntu_server_ip_address
+     ```
+   - Update the package lists and install Mosquitto and Mosquitto-clients:
+     ```shell
+     sudo apt install -y mosquitto mosquitto-clients
+     ```
+   - Enable autostart at server boot.
+     ```shell
+     sudo systemctl enable mosquitto.service
+     ```
+   - Test Mosquitto configuration:
+     Open up two PowerShells and ssh into the server on both.
+     In the first one:
+     ```shell
+     mosquitto_sub -t test/topic
+     ```
+     In the second one
+     ```shell
+     mosquitto_pub -t test/topic -m "Hello, MQTT!"
+     ```
+     If everything is set up correctly, you should see the published message appear in the terminal where you subscribed.
+
+3. **Install Node Red on the Ubuntu server for building the user interface and data flow management.**
+
+   - Install Node.js and npm:
+     ```shell
+     sudo apt install nodejs npm
+     ```
+   - Verify the Node.js and npm installations:
+     ```shell
+     node --version
+     npm --version
+     ```
+   - Install Node-red:
+     ```shell
+     sudo npm install node-red
+     ```
+   - Enable autostart at server boot.
+     ```shell
+     sudo systemctl enable nodered.service
+     ```
+      
+4. **Configure Mosquitto MQTT to communicate with the Raspberry Pi Pico WH, dissable local-only mode.**
+
+   - Locate the mosquitto.conf file. It's usually at /etc/mosquitto/
+     ```shell
+     sudo nano /etc/mosquitto/mosquitto.conf
+     ```
+   - Add listener 1883 and allow_anonymous true
+    
+
+# Ubuntu WSL Mosquitto Setup
 1. **Getting Setup with Ubuntu WSL**
     - Install WSL by following Microsofts guide linked above. Then Install Ubuntu from [Microsoft Store](https://www.microsoft.com/store/productId/9PDXGNCFSCZV?ocid=pdpshare).
     - Launch Ubuntu and a Termial window should pop-up, promting you to create an admin user. When successfull, make sure to update the software package.

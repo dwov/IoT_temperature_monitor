@@ -18,6 +18,9 @@ The purpose of this project is to monitor temperature, humidity, and light level
 Q: **How much time will this take to make?**  
 A: Approximately 5-8 hours
 
+## System communication overview
+<img src=Images/System_Architecture.png>
+
 # Table of contents
 1. [Overview](#overview) - A brief introduction.
 2. [Objective](#objective) - Overall goal of the project.

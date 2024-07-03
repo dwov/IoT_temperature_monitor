@@ -11,12 +11,12 @@
 </p>
 
 # Overview
-This is an IoT project for the course *Introduction to Applied IoT* at *Linneus University*.  
+This is an IoT project for the course *Introduction to Applied IoT* at *Linnaeus University*.  
 
 The purpose of this project is to monitor temperature, humidity, and light levels in a room, with the potential future goal of automating existing smart home appliances. The project utilizes a Raspberry Pi Pico and sensors to read and send data to a **MQTT** Broker hosted locally on computer of choice, where the data then will be displayed in **Node-RED**.
 
 Q: **How much time will this take to make?**  
-A: Approximately 5-6 hours
+A: Approximately 5-8 hours
 
 # Table of contents
 1. [Overview](#overview) - A brief introduction.
@@ -40,14 +40,14 @@ A: Approximately 5-6 hours
 # Objective
 The Goal: Monitor and Automate My Apartment  
 
-I aim to monitor the environment in my one-room apartment and eventually automate my existing smart home setup, which includes some lights and a fan. I went for a locally self-hosted solution to increase security and remove limitations of free version of ex. *Adafruit*. This project provided an opportunity to delve into IoT technologies and hands-on DIY projects.
+I aim to monitor the environment in my one-room apartment and eventually automate my existing smart home setup, which includes some lights and a fan. I chose a locally self-hosted solution to increase security and remove limitations of free versions of services like *Adafruit*. This project provided an opportunity to delve into IoT technologies and hands-on DIY projects.
 
 Exploring IoT basics, communications, and home automation has always intrigued me, but I never had the push to start. This course kickstarted my journey, sparking various ideas for future projects. 
 
 *Stay tuned for updates on GitHub!*
 
 ## Project insights
-This project and course have provided me with new knowledge about IoT concepts and IoT connectivity. But it has also come with some challenges, particularly in server-side setup, but it has been a rewarding experience nonetheless.
+This project and course have provided me with new knowledge about IoT concepts and IoT connectivity. However, it has also come with some challenges, particularly in server-side setup, but it has been a rewarding experience nonetheless.
 
 # Materials
 ## List of Material Needed, Including Description, Price, and Where to Buy
@@ -77,7 +77,7 @@ This project and course have provided me with new knowledge about IoT concepts a
 # Computer setup
 
 ## Programming the Raspberry Pi Pico WH
-To develop and run the code on the Raspberry Pi Pico, specifically on a Windows computer (I don't have access to other operating system at this moment) using Visual Studio Code, you will need to:
+To develop and run the code on the Raspberry Pi Pico, specifically on a Windows computer (I don't have access to other operating systems at this moment) using Visual Studio Code, you will need to:
 1. **Download and Install [Node.js LTS](https://Nodejs.org/en/)**
 2. **Download and Install [Visual Studio Code](https://code.visualstudio.com/Download)**
 3. **Download and Install Pymakr from extensions in VS Code**
@@ -91,21 +91,21 @@ To develop and run the code on the Raspberry Pi Pico, specifically on a Windows 
 - The device should now automatically disconnect from your computer.
 - Replug the USB cable (without holding the BOOTSEL button). And voila!
 
-If you have trouble setting things up or dont know how to start a project, I advice you to check the course's guides for [Installing VS Code and Pymakr](https://hackmd.io/@lnu-iot/rkiTJj8O9) and [Updating firmware of Pi Pico W + Test run code](https://hackmd.io/@lnu-iot/rkFw7gao_#Visual-Studio-Code) and also [Basic code structure](https://hackmd.io/@lnu-iot/B1T1_KM83)  
+If you have trouble setting things up or don't know how to start a project, I advise you to check the course's guides for [Installing VS Code and Pymakr](https://hackmd.io/@lnu-iot/rkiTJj8O9), [Updating firmware of Pi Pico W + Test run code](https://hackmd.io/@lnu-iot/rkFw7gao_#Visual-Studio-Code), and [Basic code structure](https://hackmd.io/@lnu-iot/B1T1_KM83).
 
 Great, we are now ready to program our Pi Pico. If you want to experiment with running code, feel free to take a break here.
 
 ## Setting up Ubuntu to Run Mosquitto MQTT Server
 ***Disclaimer:*** I did not have access to a seperate computer and did not want to install Linux as the main operating system so I had to improvise. I knew that Windows 11 could run Linux in a virutal environment with [WSL](https://learn.microsoft.com/en-us/windows/wsl/). With that knowledge, I set it up on my laptop in a virutal Linux environment because I could not get Mosquitto MQTT to work directly on Windows.
 
-*Side-note: If you want a use simpler solution of Adafruit IO, you can skip this setup part and check out [this tutorial](https://hackmd.io/@lnu-iot/r1yEtcs55) on how to connect to Adafruit*
+*Side-note: If you want a simpler solution like Adafruit IO, you can skip this setup part and check out [this tutorial](https://hackmd.io/@lnu-iot/r1yEtcs55) on how to connect to Adafruit*
 
 **Choose your way of setup** [Ubuntu Regular Setup](#ubuntu-regular-mosquitto-setup) or [Ubuntu WSL Setup](#ubuntu-wsl-mosquitto-setup)
 
 ### Ubuntu Regular Mosquitto Setup
 These steps were taken from a previous student of the course [HERE](https://github.com/Aleij/Smart_Horticulture/blob/main/README.md#ubuntu-server-setup), but are listed below. Thank you, [Aleij](https://github.com/Aleij) (he has a great guide on getting started with GitHub). 
 
-*Note: There are slight variantions in the configuration but choose whichever one you think works best or use trial and error.*
+*Note: There are slight variations in the configuration but choose whichever one you think works best or use trial and error.*
 
 To set up a Ubuntu server for running the Mosquitto MQTT server and Node Red, follow these steps:
 

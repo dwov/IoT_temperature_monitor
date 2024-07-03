@@ -21,21 +21,21 @@ A: Approximately 5-6 hours
 # Table of contents
 1. [Overview](#overview) - A brief introduction.
 2. [Objective](#objective) - Overall goal of the project.
-3. [Project Insights](#project-insights) 
-4. [Materials](#materials) - The components used.
-5. [Computer Setup](#computer-setup) - Setting up your environment and getting started with everything server side.
+  - [Project Insights](#project-insights) 
+3. [Materials](#materials) - The components used.
+4. [Computer Setup](#computer-setup) - Setting up your environment and getting started with everything server side.
    - [Programming the Raspberry Pi Pico WH](#programming-the-raspberry-pi-pico-wh) - Setting up IDE and Pi Pico W development.
    - [Setting up Ubuntu to Run Mosquitto MQTT Server](#setting-up-ubuntu-to-run-mosquitto-mqtt-server) - Setting up the Ubuntu server and getting Mosquitto MQTT and Node-RED running.
      - [Ubuntu Regular Mosquitto Setup](#ubuntu-regular-mosquitto-setup) - Setting up Ubuntu on a dedicated computer.
      - [Ubuntu WSL Mosquitto Setup](#ubuntu-wsl-mosquitto-setup) - Setting up Ubuntu running in a virtual environment on Windows 11.
-6. [Putting Everything Together](#putting-everything-together) - 
-7. [Chosen Platform](#chosen-platform)
-8. [The Code](#the-code)
-9. [Data Transmission and Connectivity](#data-transmission-and-connectivity)
-10. [Data Presentation](#data-presentation)
-11. [Finalizing the Design](#finalizing-the-design)
-12. [About](#about)
-13. [License](#license)
+5. [Putting Everything Together](#putting-everything-together) - 
+6. [Chosen Platform](#chosen-platform)
+7. [The Code](#the-code)
+8. [Data Transmission and Connectivity](#data-transmission-and-connectivity)
+  - [Node-RED Backend](#node-red-backend)
+9. [Data Presentation](#data-presentation)
+10. [Finalizing the Design](#finalizing-the-design)
+  - [Future improvements to be made](#future-improvements-to-be-made)
 
 # Objective
 The Goal: Monitor and Automate My Apartment  

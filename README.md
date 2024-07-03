@@ -295,9 +295,7 @@ I started the project with my mind set on running everything of my TrueNAS serve
 While Adafruit was both easy to use and setup I felt that I wanted to challenge myself a little more so I went for a local installation with a future goal to implement this in my home when autumn comes around the corner. I went for the MQTT platform from Mosquitto and Node-RED as my visualization. With this setup I have so much more freedom and customizability with both functionality and looks.
 
 # The code
-Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here, focus on the core functionalities. Have you done a specific function that does a calculation, or are you using clever function for sending data on two networks? Or, are you checking if the value is reasonable etc. Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
-#
-The code in this project serve the purpose of establishing a connection to Wi-Fi and MQTT Broker, collecting sensor data, and transmitting the data to the MQTT broker. Every loop the micro controller checks the connection to internet and tries to reconnect if there is a disruption of Wi-Fi connection.
+The code in this project serve the purpose of establishing a connection to Wi-Fi and MQTT Broker, collecting sensor data, and transmitting the data to the MQTT broker. If unsucessful with any connection, it will with MQTT, retry connection, and with Wi-Fi or other error, reset the device after 20 seconds. Every loop the micro controller checks the connection to internet and MQTT broker, sends the data to MQTT server and can also receive instructions, but these are not coded yet.
 
 - `main.py` contains the core functionalities of collecting and sending data to the broker.
 - `lib/keys.py` stores the credentials and configurations related to Wi-Fi and MQTT.

@@ -3,7 +3,7 @@
 # __version__ = "1.0.0"                                             #
 #===================================================================#
 
-import time
+import time                         # List of needed libraries
 from mqtt import MQTTClient
 import machine
 import micropython
@@ -14,15 +14,15 @@ import wifiConnection
 
 
 # Constants
-PUBLISH_INTERVAL = 10000        # milliseconds
-RECONNECT_INTERVAL = 300000     # milliseconds (5 minutes)
+PUBLISH_INTERVAL = 10000                    # milliseconds
+RECONNECT_INTERVAL = 300000                 # milliseconds (5 minutes)
 
 # Global Variables
-last_reconnect_ticks = last_reconnect_ticks = time.ticks_ms()
+last_reconnect_ticks = 0
 last_random_sent_ticks = 0
 
 # Hardware Initialization
-led = Pin("LED", Pin.OUT)       # On-board led pin initialization for Raspberry Pi Pico W
+led = Pin("LED", Pin.OUT)                   # On-board led pin initialization for Raspberry Pi Pico W
 light_sensor = machine.ADC(27)
 temp_sensor = machine.ADC(26)
 dht_sensor = dht.DHT11(machine.Pin(18))
@@ -72,11 +72,18 @@ try:
 except KeyboardInterrupt:
     print("Keyboard interrupt")
 
-# Use the MQTT protocol to connect to MQTT server
+# Use the MQTT protocol to connect to Adafruit IO
 client = MQTTClient(keys.MQTT_CLIENT_ID, keys.MQTT_SERVER, keys.MQTT_PORT, keys.MQTT_USER, keys.MQTT_KEY)
 
 client.set_callback(sub_cb)
-client.connect()
+while True:
+    try:
+        client.connect()
+        print("Connected to MQTT server successfully")
+        break
+    except Exception as e:
+        print("Failed to connect to MQTT server, {}".format(e))
+        time.sleep(10)
 client.subscribe(keys.MQTT_BOARD_LIGHT_FEED)
 print("Connected to %s, subscribed to %s topic" % (keys.MQTT_SERVER, keys.MQTT_BOARD_LIGHT_FEED))
 
@@ -93,6 +100,11 @@ try:
         
         client.check_msg()
         read_sensors()
+except Exception as e:  # If an exception is thrown, print the error and reset the Pico to try and reconnect.
+    print("An error occurred, {}".format(e))
+    wifiConnection.disconnect()
+    time.sleep(20)   # Wait 20 seconds before resetting
+    machine.reset()  # Restart the Pico
 finally:                  # If an exception is thrown disconnect from MQTT and WiFi
     client.disconnect()
     wifiConnection.disconnect()

@@ -21,7 +21,7 @@ A: Approximately 5-6 hours
 # Table of contents
 1. [Overview](#overview) - A brief introduction.
 2. [Objective](#objective) - Overall goal of the project.
-  - [Project Insights](#project-insights) 
+   - [Project Insights](#project-insights) 
 3. [Materials](#materials) - The components used.
 4. [Computer Setup](#computer-setup) - Setting up your environment and getting started with everything server side.
    - [Programming the Raspberry Pi Pico WH](#programming-the-raspberry-pi-pico-wh) - Setting up IDE and Pi Pico W development.
@@ -32,10 +32,10 @@ A: Approximately 5-6 hours
 6. [Chosen Platform](#chosen-platform)
 7. [The Code](#the-code)
 8. [Data Transmission and Connectivity](#data-transmission-and-connectivity)
-  - [Node-RED Backend](#node-red-backend)
+   - [Node-RED Backend](#node-red-backend)
 9. [Data Presentation](#data-presentation)
 10. [Finalizing the Design](#finalizing-the-design)
-  - [Future improvements to be made](#future-improvements-to-be-made)
+   - [Future improvements to be made](#future-improvements-to-be-made)
 
 # Objective
 The Goal: Monitor and Automate My Apartment  

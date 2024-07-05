@@ -45,12 +45,12 @@ This image shows a very basic system overview. Displaying how the system is comm
 # Objective
 The Goal: Monitor and Automate My Apartment  
 
-It's been a long time dream of mine to have a automatic home environment where everything just does what it should at will, where I have complete control and don't have to rely on a constant Internet connection. So the bigger goal listed above is a long term commitment. With this project I aim to monitor the environment in apartment to be able to have some data and concepts that I can further improve my living. I chose a locally self-hosted solution to increase security and remove limitations of free versions of cloud-services like *Adafruit*, but also as mentioned, to not solely rely on a constant internet connection (like my Google Home). The project provided me an opportunity to delve into IoT technologies and hands-on DIY projects like I have had in mind for a while.
+It's been a long time dream of mine to have a automatic home environment where everything just does what it should at will, where I have complete control and don't have to rely on a constant Internet connection. So the bigger goal listed above is a long term commitment. With this project I aim to monitor the environment in apartment to be able to have some data and concepts so that I can further improve my living. I chose a locally self-hosted solution to increase security and remove limitations of free versions of cloud-services like *Adafruit*, but also as mentioned, to not solely rely on a constant internet connection (like my Google Home). The project provided me an opportunity to delve into IoT technologies and hands-on DIY projects like I have had in mind for a while.
 
 Exploring IoT basics, communications, and home automation has always intrigued me, but I never had the push to start. This course kickstarted my journey, sparking various ideas for future projects.  
 *Stay tuned for updates on GitHub!*
 
-This project will provide me with new knowledge and idéas about IoT concepts, IoT connectivity, and self-hosting, which I always found scary and looking too difficult to set up. The course and project will also help me move along in my carrer of embedded systems, IoT and DIY home solutions.
+This project will provide me with new knowledge and idéas about IoT concepts, IoT connectivity, and self-hosting, which I always found scary and looking too difficult to set up. The course and project will also help me move along in my carrer of embedded systems, IoT and DIY tinkering.
 
 # Materials
 ## Bill of Materials

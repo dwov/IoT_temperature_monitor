@@ -251,7 +251,30 @@ With Node-RED, you can install additional modules and nodes which can further in
 # The code
 The code is written in MicroPython and serves the purpose of establishing a connection to Wi-Fi, the MQTT Broker, collecting sensor data, and transmitting the data to the MQTT broker. If unsucessful with any connection, it will retry to connect with MQTT, and with Wi-Fi or other error, reset the device after 20 seconds. Every loop the micro controller checks the connection to internet and MQTT broker, sends the data to MQTT server and can also receive instructions, but these are not coded yet.
 
-- `main.py` contains the core functionalities of collecting and sending data to the broker.
+- `main.py` contains the core functionalities of collecting and sending data to the broker. Below is the main loop of the program.
+```python
+try:
+    while 1:              # Repeat this loop forever
+        if ((time.ticks_ms() - last_reconnect_ticks) > RECONNECT_INTERVAL): # Ensure we are connected to WiFi and reconnect MQTT
+            wifiConnection.connect()
+            client.disconnect()
+            time.sleep(1)
+            client.connect()
+            client.subscribe(keys.MQTT_BOARD_LIGHT_FEED)
+            last_reconnect_ticks = time.ticks_ms()
+        
+        client.check_msg()
+        read_sensors()
+except Exception as e:  # If an exception is thrown, print the error and reset the Pico to try and reconnect.
+    print("An error occurred, {}".format(e))
+    wifiConnection.disconnect()
+    time.sleep(20)   # Wait 20 seconds before resetting
+    machine.reset()  # Restart the Pico
+finally:                  # If an exception is thrown disconnect from MQTT and WiFi
+    client.disconnect()
+    wifiConnection.disconnect()
+    print("Disconnected from MQTT(NODE RED).")
+```
 - `lib/keys.py` stores the credentials and configurations related to Wi-Fi and MQTT.
 - `lib/mqtt.py` provides the implementation of the MQTT client, sending and recieving data.
 - `lib/wifiConnection.py` handles the Wi-Fi connection.
@@ -262,12 +285,11 @@ The code is written in MicroPython and serves the purpose of establishing a conn
 The project uses a locally hosted MQTT broker, but it is possible to make it work over the internet with some further tinkering if wanted.
 
 #
-MQTT is a lightweight messaging protocol designed for constrained devices (such as IoT devices) with low-bandwidth, high-latency, or unreliable networks in mind. It uses a PUBLISH-SUBSCRIBE model.
-
-The minimum packet size of a MQTT message is 2 bytes, which means its substancially smaller than a HTTP packet which is minimum of 26 bytes. This leads to less power consumed.
+> MQTT is a lightweight messaging protocol designed for constrained devices (such as IoT devices) with low-bandwidth, high-latency, or unreliable networks in mind. It uses a PUBLISH-SUBSCRIBE model.  
+> The minimum packet size of a MQTT message is 2 bytes, which means its substancially smaller than a HTTP packet which is minimum of 26 bytes. This leads to less power consumed sending data.
 #
 
-The sensors collected data is transmitted via Wi-Fi to the MQTT Broker using MQTT protocol, described above. I wanted to use MQTT over HTTP because of its lightweight and efficient messaging. To keep power consumption low and reduce overhead.
+The sensors collected data is transmitted over Wi-Fi to the MQTT Broker using the MQTT protocol. I wanted to use MQTT over HTTP because of its lightweight and efficient messaging. To keep power consumption low and reduce overhead. As mentioned above.
 
 In this implementation the messages are sent every 10 seconds to reduce unecessary amounts of data being sent. But still keeping it relativly real-time.
 
@@ -283,13 +305,11 @@ and then publishes the "ON" or "OFF" (seen last in the picture) message dependin
 # Data presentation
 The visualization of data is done using Node-RED dashboard, which can be easily installed in Node-RED menu.
 
-My representation looks like this:
+My representation looks like this for now:
 <img src=Images/node-red-visual.png>
 
 # Finalizing the design
-I unfortunatly did not have time or access to my dedicated server, and thus needed to compromise on automation. This has been bumming me out during the whole project but I think I got something to further develop in the coming months. So to summarize, I would not say that the project is not completely finshed yet.
-
-<span style="color: red">TODO:</span> Video presentation.
+I unfortunatly did not have time or access to my dedicated homeserver, and thus needed to compromise on automation. This has been bumming me out during the whole project but I think I got something to further develop in the coming months. So to summarize, I would not say that the project is not completely finshed yet.
 
 ## Future improvements to be made
 These are some of my thoughts to further improve the functionality and behaviour of the project.

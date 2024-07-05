@@ -44,7 +44,7 @@ def read_sensors():
     if ((time.ticks_ms() - last_random_sent_ticks) < PUBLISH_INTERVAL):
         return; # Too soon since last one sent.
 
-    light_level = round(light_sensor.read_u16() / 65535 * 100, 2)   # Read light sensor and convert to percentage
+    light_level = round((light_sensor.read_u16() / 65535) * 100, 2)   # Read light sensor and convert to percentage
     temp_voltage = temp_sensor.read_u16() * (3.3 / 65535)           # Read temperature sensor voltage and convert with scale factor
     temp_celsius = (temp_voltage - 0.5) * 100                       # Convert voltage to temperature in Celsius
     dht_sensor.measure()

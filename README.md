@@ -228,10 +228,9 @@ where:
 - $( V_{in} )$ is the input voltage,
 - $( R_1 )$ and $( R_2 )$ are the resistances.
 
-$$V_{out} = 3.3V \times \frac{R_2}{R_1 + R_2},$$
-$$V_{out} = 3.3V \times \frac{R_2}{R_1 + R_2},$$
+$$V_{out} = 3.3V \times \frac{R_{Photoresistor}}{10k + R_{Photoresistor}},$$
 
-We want to connect it like this (pull-down) to increase relaiability and accuracy of readings.
+We want to connect it with a pull-down to increase relaiability and accuracy of readings.
 
 ##
 The final connections should look something like this, try and make it prettier than this :).

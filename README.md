@@ -1,4 +1,4 @@
-<h1 align="center">Self hosted IoT Temperature and Light level monitor</h1>
+<h1 align="center">SmartEnv: IoT Temperature and Light Monitor</h1>
 
 <p align="center">
   <img src="Images/DALLE_illustration_of_IoT.webp" alt="DALLE genererad bild" width="500">
@@ -10,52 +10,52 @@
   By: <a href="https://github.com/dwov">David Permlid</a> - Student ID: dp222nr
 </p>
 
-# Overview
-This is an IoT project for the course *Introduction to Applied IoT* at *Linnaeus University*.  
+# Introduction
+This project was made as a part of the course *[Introduction to Applied IoT](https://lnu.se/en/course/introduction-to-applied-internet-of-things/distance-international-summer/)* at *Linnaeus University*. 
 
-The purpose of this project is to monitor temperature, humidity, and light levels in a room, with the potential future goal of automating existing smart home appliances. The project utilizes a Raspberry Pi Pico and sensors to read and send data to a **MQTT** Broker hosted locally on computer of choice, where the data then will be displayed in **Node-RED**.
+The purpose of this project is to create the base for my fully automated smart home, with this prototype being a monitoring system handling temperature, humidity, and light levels in a room. With this proof of concept I will be able to expand and implement different solutions later on, with my newly aquired knowledge, for a truely smart home.
+
+This project utilizes a Raspberry Pi Pico WH with some sensors wired up, to read and send data to a **MQTT** Broker, hosted locally on computer of choice, where the data then will be displayed in **Node-RED**.
 
 Q: **How much time will this take to make?**  
 A: Approximately 5-8 hours
 
 ## System communication overview
 <img src=Images/System_Architecture.png>
+This image shows a very basic system overview. Displaying how the system is communicating.
 
 # Table of contents
-1. [Overview](#overview) - A brief introduction.
-2. [Objective](#objective) - Overall goal of the project.
-   - [Project Insights](#project-insights) 
-3. [Materials](#materials) - The components used.
-4. [Computer Setup](#computer-setup) - Setting up your environment and getting started with everything server side.
-   - [Programming the Raspberry Pi Pico WH](#programming-the-raspberry-pi-pico-wh) - Setting up IDE and Pi Pico W development.
-   - [Setting up Ubuntu to Run Mosquitto MQTT Server](#setting-up-ubuntu-to-run-mosquitto-mqtt-server) - Setting up the Ubuntu server and getting Mosquitto MQTT and Node-RED running.
-     - [Ubuntu Regular Mosquitto Setup](#ubuntu-regular-mosquitto-setup) - Setting up Ubuntu on a dedicated computer.
-     - [Ubuntu WSL Mosquitto Setup](#ubuntu-wsl-mosquitto-setup) - Setting up Ubuntu running in a virtual environment on Windows 11.
-5. [Putting Everything Together](#putting-everything-together) - 
-6. [Chosen Platform](#chosen-platform)
-7. [The Code](#the-code)
-8. [Data Transmission and Connectivity](#data-transmission-and-connectivity)
-   - [Node-RED Backend](#node-red-backend)
-9. [Data Presentation](#data-presentation)
-10. [Finalizing the Design](#finalizing-the-design)
-   - [Future improvements to be made](#future-improvements-to-be-made)
+- [Introduction](#introduction) - A brief introduction.
+- [Objective](#objective) - Overall goal of the project.
+- [Materials](#materials) - The components used.
+- [Computer Setup](#computer-setup) - Setting up your environment and getting started with everything server side.
+  - [Programming the Raspberry Pi Pico WH](#programming-the-raspberry-pi-pico-wh) - Setting up IDE and Pi Pico W development.
+  - [Setting up Ubuntu to Run Mosquitto MQTT Server](#setting-up-ubuntu-to-run-mosquitto-mqtt-server) - Setting up the Ubuntu server and getting Mosquitto MQTT and Node-RED running.
+    - [Ubuntu Regular Mosquitto Setup](#ubuntu-regular-mosquitto-setup) - Setting up Ubuntu on a dedicated computer.
+    - [Ubuntu WSL Mosquitto Setup](#ubuntu-wsl-mosquitto-setup) - Setting up Ubuntu running in a virtual environment on Windows 11.
+- [Putting Everything Together](#putting-everything-together)
+- [Chosen Platform](#chosen-platform)
+- [The Code](#the-code)
+- [Data Transmission and Connectivity](#data-transmission-and-connectivity)
+  - [Node-RED Backend](#node-red-backend)
+- [Data Presentation](#data-presentation)
+- [Finalizing the Design](#finalizing-the-design)
+  - [Future improvements to be made](#future-improvements-to-be-made)
 
 # Objective
 The Goal: Monitor and Automate My Apartment  
 
-I aim to monitor the environment in my one-room apartment and eventually automate my existing smart home setup, which includes some lights and a fan. I chose a locally self-hosted solution to increase security and remove limitations of free versions of services like *Adafruit*. This project provided an opportunity to delve into IoT technologies and hands-on DIY projects.
+It's been a long time dream of mine to have a automatic home environment where everything just does what it should at will, where I have complete control and don't have to rely on a constant Internet connection. So the bigger goal listed above is a long term commitment. With this project I aim to monitor the environment in apartment to be able to have some data and concepts that I can further improve my living. I chose a locally self-hosted solution to increase security and remove limitations of free versions of cloud-services like *Adafruit*, but also as mentioned, to not solely rely on a constant internet connection (like my Google Home). The project provided me an opportunity to delve into IoT technologies and hands-on DIY projects like I have had in mind for a while.
 
-Exploring IoT basics, communications, and home automation has always intrigued me, but I never had the push to start. This course kickstarted my journey, sparking various ideas for future projects. 
-
+Exploring IoT basics, communications, and home automation has always intrigued me, but I never had the push to start. This course kickstarted my journey, sparking various ideas for future projects.  
 *Stay tuned for updates on GitHub!*
 
-## Project insights
-This project and course have provided me with new knowledge about IoT concepts and IoT connectivity. However, it has also come with some challenges, particularly in server-side setup, but it has been a rewarding experience nonetheless.
+This project will provide me with new knowledge and idéas about IoT concepts, IoT connectivity, and self-hosting, which I always found scary and looking too difficult to set up. The course and project will also help me move along in my carrer of embedded systems, IoT and DIY home solutions.
 
 # Materials
-## List of Material Needed, Including Description, Price, and Where to Buy
+## Bill of Materials
 
-***Disclaimer:*** The materials used in this project were purchased as part of the [Start Kit - Applied IoT at Linnaeus University](https://www.electrokit.com/lnu-starter). Not all components are used, so here are the components used.
+***Disclaimer:*** The materials used in this project were purchased as part of the [Start Kit - Applied IoT at Linnaeus University](https://www.electrokit.com/lnu-starter). Not all components are used, so here is list of the important ones for this specific project:
 
 | Image | Description | Where | Price |
 | ------------- | ------------- | ------------- | ------------- |
@@ -65,30 +65,31 @@ This project and course have provided me with new knowledge about IoT concepts a
 | <img src="Images/photoresistor.jpg" width="150"> | Photoresistor | [electrokit](https://www.electrokit.com/fotomotstand-cds-4-7-kohm) | 8 SEK |
 | <img src="Images/mcp9700.jpg" width="150"> | MCP9700 | [electrokit](https://www.electrokit.com/mcp9700-to-92-temperaturgivare) | 12 SEK |
 | <img src="Images/dht11.jpg" width="150"> | DHT11 | [electrokit](https://www.electrokit.com/digital-temperatur-och-fuktsensor-dht11) | 49 SEK |
-| 10kΩ Resistor |  | Electronics store |  |
-| Micro-USB | Cable | Anywhere |  |
+|  | 10kΩ Resistor | Electronics store |  |
+|  | Micro-USB, Cable | Anywhere |  |
 
 \* All prices adjusted as of 2024-06-30 
 
-- **Raspberry Pi Pico WH:** A microcontroller board based on Raspberry Pi's RP2040 chip, providing a cost-effective solution for DIY IoT projects.
+### Short component description
+- **Raspberry Pi Pico WH:** A microcontroller board based on Raspberry Pi's RP2040 chip, providing a cost-effective solution for DIY IoT projects. It also features Wi-Fi and bluetooth connectivity.
 - **Breadboard:** A reusable solderless prototyping board that allows for easy circuit experimentation and component connections.
-- **Jumper wire M/M:** Male-to-male jumper wires for connecting components on a breadboard.
+- **Jumper wire M/M:** Male-to-Male jumper wires for connecting components on the breadboard.
 - **Photoresistor:** A light-sensitive resistor that changes its resistance based on the intensity of light.
-- **MCP9700:** A temperature sensor that provides analog output proportional to the temperature.
-- **DHT11:** A temperature and humidity sensor that provides digital output.
+- **MCP9700:** A temperature sensor that provides analog output (voltage) proportional to the temperature.
+- **DHT11:** A temperature and humidity sensor that provides digital output (ie. 1's and 0's).
 
 # Computer setup
 
 ## Programming the Raspberry Pi Pico WH
 To develop and run the code on the Raspberry Pi Pico, specifically on a Windows computer (I don't have access to other operating systems at this moment) using Visual Studio Code, you will need to:
 1. **Download and Install [Node.js LTS](https://Nodejs.org/en/)**
-2. **Download and Install [Visual Studio Code](https://code.visualstudio.com/Download)**
+2. **Download and Install [Visual Studio Code](https://code.visualstudio.com/Download)** - Thonny IDE is another great option, but due to being already familiar and doing other projects in Visual Studio Code I went for that.
 3. **Download and Install Pymakr from extensions in VS Code**
 
 ![bild](Images/pymakr_install.png)
 
 4. **Flash MicroPython firmware onto Raspberry Pi Pico WH**
-- Download the latest MicroPython firmware [here](https://micropython.org/download/rp2-pico-w).
+- Download the latest MicroPython firmware [here](https://micropython.org/download/rp2-pico-w). (At the time of this project the latest firmware is v1.23.0)
 - While holding the **BOOTSEL** button, connect your Raspberry Pi Pico WH to the computer. When plugged in, button can be released.
 - A new drive should pop-up in file manager called **RPI-RP2**, copy and paste the firmware-file there.
 - The device should now automatically disconnect from your computer.
@@ -101,18 +102,11 @@ Great, we are now ready to program our Pi Pico. If you want to experiment with r
 ## Setting up Ubuntu to Run Mosquitto MQTT Server
 ***Disclaimer:*** I did not have access to a seperate computer and did not want to install Linux as the main operating system so I had to improvise. I knew that Windows 11 could run Linux in a virutal environment with [WSL](https://learn.microsoft.com/en-us/windows/wsl/). With that knowledge, I set it up on my laptop in a virutal Linux environment because I could not get Mosquitto MQTT to work directly on Windows.
 
-*Side-note: If you want a simpler solution like Adafruit IO, you can skip this setup part and check out [this tutorial](https://hackmd.io/@lnu-iot/r1yEtcs55) on how to connect to Adafruit*
+*Side-note: If you want a simpler solution like Adafruit IO, you can skip this setup part and check out [this tutorial](https://hackmd.io/@lnu-iot/r1yEtcs55) on how to connect to Adafruit*  
 
-**Choose your way of setup** [Ubuntu Regular Setup](#ubuntu-regular-mosquitto-setup) or [Ubuntu WSL Setup](#ubuntu-wsl-mosquitto-setup)
-
-### Ubuntu Regular Mosquitto Setup
-These steps were taken from a previous student of the course [HERE](https://github.com/Aleij/Smart_Horticulture/blob/main/README.md#ubuntu-server-setup), but are listed below. Thank you, [Aleij](https://github.com/Aleij) (he has a great guide on getting started with GitHub). 
-
-*Note: There are slight variations in the configuration but choose whichever one you think works best or use trial and error.*
-
-To set up a Ubuntu server for running the Mosquitto MQTT server and Node Red, follow these steps:
-
-1. **Install Ubuntu Server on your old laptop or a dedicated machine.**
+### Ubuntu Mosquitto Setup
+The only difference between this and a normal OS installation is the installation part of 
+**Install Ubuntu Server on your old laptop or a dedicated machine.**
 
    - Download the Ubuntu Server ISO from the official [website](https://ubuntu.com/download/server).
    - Create a bootable USB drive using software like Rufus or BalenaEtcher.
@@ -123,65 +117,6 @@ To set up a Ubuntu server for running the Mosquitto MQTT server and Node Red, fo
      sudo apt update -y
      sudo apt upgrade -y
      ```
-
-2. **Install Mosquitto MQTT broker on the Ubuntu server for communication between devices.**
-
-   - Open PowerShell on your Windows computer.
-   - Connect to the Ubuntu server via SSH:
-     ```powershell
-     ssh ubuntu_server_ip_address
-     ```
-   - Update the package lists and install Mosquitto and Mosquitto-clients:
-     ```shell
-     sudo apt install -y mosquitto mosquitto-clients
-     ```
-   - Enable autostart at server boot.
-     ```shell
-     sudo systemctl enable mosquitto.service
-     ```
-   - Test Mosquitto configuration:
-     Open up two PowerShells and ssh into the server on both.
-     In the first one:
-     ```shell
-     mosquitto_sub -t test/topic
-     ```
-     In the second one
-     ```shell
-     mosquitto_pub -t test/topic -m "Hello, MQTT!"
-     ```
-     If everything is set up correctly, you should see the published message appear in the terminal where you subscribed.
-
-3. **Install Node Red on the Ubuntu server for building the user interface and data flow management.**
-
-   - Install Node.js and npm:
-     ```shell
-     sudo apt install nodejs npm
-     ```
-   - Verify the Node.js and npm installations:
-     ```shell
-     node --version
-     npm --version
-     ```
-   - Install Node-red:
-     ```shell
-     sudo npm install node-red
-     ```
-   - Enable autostart at server boot.
-     ```shell
-     sudo systemctl enable nodered.service
-     ```
-      
-4. **Configure Mosquitto MQTT to communicate with the Raspberry Pi Pico WH, dissable local-only mode.**
-
-   - Locate the mosquitto.conf file. It's usually at /etc/mosquitto/
-     ```shell
-     sudo nano /etc/mosquitto/mosquitto.conf
-     ```
-   - Add listener 1883 and allow_anonymous true
-    
-
-### Ubuntu WSL Mosquitto Setup
-This was my way because of logistical difficulties.
 
 1. **Getting Setup with Ubuntu WSL**
     - Install WSL by following Microsofts [this guide](https://learn.microsoft.com/en-us/windows/wsl/install). Then Install Ubuntu from [Microsoft Store](https://www.microsoft.com/store/productId/9PDXGNCFSCZV?ocid=pdpshare).
@@ -232,7 +167,27 @@ This was my way because of logistical difficulties.
 
 3. **Install Node-RED**
     - Follow Node-RED's tutorial on how to install it on Windows [HERE](https://Nodered.org/docs/getting-started/windows). (It's short simple steps)
-    - Run Node-RED in a *Powershell* terminal window in Windows with ```node-red```
+    - Run Node-RED in a *Powershell* terminal window in Windows with ```node-red``` command.
+
+    **Alternativly Install Node Red on the Ubuntu Server**
+
+   - Install Node.js and npm:
+     ```shell
+     sudo apt install nodejs npm
+     ```
+   - Verify the Node.js and npm installations:
+     ```shell
+     node --version
+     npm --version
+     ```
+   - Install Node-red:
+     ```shell
+     sudo npm install node-red
+     ```
+   - Enable autostart at server boot.
+     ```shell
+     sudo systemctl enable nodered.service
+     ```
 
 4. **Connect Node-RED to Mosquitto MQTT**  
     When starting Node-RED it should give you the address and port to use for configuration, and since we are running this on one machine we can use ```localhost``` as our address which simplifies things alot (This is not the case later for Pi Pico).
@@ -240,7 +195,7 @@ This was my way because of logistical difficulties.
     - Add an ``"mqtt-in"`` and a ``"Debug"`` node to your flow.
     - Follow [this guide](https://hackmd.io/@lnu-iot/rJr_nGyq5#Connecting-Node-Red-to-Mosquitto-MQTT-Broker) until you've finished step 5.
 
-5. **Now to the fun part of making this work for the Pi Pico**  
+5. **Now to the fun part of making this work for the Pi Pico (!if running in WSL!)**  
     Here is where my struggle was for a long time. Since Mosquitto is running in a virtual environment, it has a virtual ethernet adapter (Ethernet adapter vEthernet (WSL (Hyper-V firewall))). Which is visible if you check ``ìpconfig`` in a command prompt. As can be seen, this IPv4 address is not the same as our local network IPv4 address.
     
     <img src=Images/cmdIPconf.png width=500>
@@ -262,23 +217,25 @@ Wiring everything up should be pretty straight forward. Ground to ground, positi
 
 **Be sure to read the datasheet for each component to be sure of what leg or pin goes where**
 
-I had a 10kΩ resistor from the kit which was ok to use for the photoresistor.
-We can calculate the voltage from the photoresistor with a simple voltage divider equation. This is mostly for safety since, and is most likely not needed.
+I had a 10kΩ resistor from the kit which is good to use together with the photoresistor. We can calculate the voltage from the photoresistor with a simple voltage divider equation. This is mostly for safety since, and is most likely not needed.
 <img src=Images/Voltage_Divider_EQ.png width=200>
 
-$$V_{out} = V_{in} \times \frac{R_2}{R_1 + R_2},$$
+$$V_{out} = V_{in} \times \frac{R_2}{R_1 + R_2},$$  
 
 where:
 - $( V_{out} )$ is the output voltage,
 - $( V_{in} )$ is the input voltage,
 - $( R_1 )$ and $( R_2 )$ are the resistances.
 
+$$V_{out} = 3.3V \times \frac{R_2}{R_1 + R_2},$$
+$$V_{out} = 3.3V \times \frac{R_2}{R_1 + R_2},$$
+
+We want to connect it like this (pull-down) to increase relaiability and accuracy of readings.
+
 ##
 The final connections should look something like this, try and make it prettier than this :).
 
 <img src=Images/Kopplingar_Visuellt.png>
-
-I missplaced the resistor in this picture, it should be connected to positive rail not ground rail.
 
 <img src=Images/IMG_3016.jpg width=500>
 

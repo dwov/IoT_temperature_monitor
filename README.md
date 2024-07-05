@@ -218,7 +218,8 @@ Wiring everything up should be pretty straight forward. Ground to ground, positi
 **Be sure to read the datasheet for each component to be sure of what leg or pin goes where**
 
 I had a 10kΩ resistor from the kit which is good to use together with the photoresistor. We can calculate the voltage from the photoresistor with a simple voltage divider equation. This is mostly for safety since, and is most likely not needed.
-<img src=Images/Voltage_Divider_EQ.png width=200>
+
+<img src=Images/Voltage_Divider_EQUATION.png width=200>
 
 $$V_{out} = V_{in} \times \frac{R_2}{R_1 + R_2},$$  
 

@@ -242,14 +242,6 @@ The final connections should look something like this, try and make it prettier 
 Here is my spaghetti of a development board and all the little things connected.
 
 # Chosen platform
-Describe your choice of platform. If you have tried different platforms it can be good to provide a comparison.
-
-Is your platform based on a local installation or a cloud? Do you plan to use a paid subscription or a free? Describe the different alternatives on going forward if you want to scale your idea.
-
-- Describe platform in terms of functionality
-- *Explain and elaborate what made you choose this platform
-#
-
 I started the project with my mind set on running everything of my TrueNAS server at my apartmnent. But since it's the summer, I am staying elsewhere and thus I initially went for Adafruit IO as my MQTT broker and visual provider.
 
 While Adafruit was both easy to use and setup I felt that I wanted to challenge myself a little more but also increase privacy and security, so I went for a local installation with a plan for the future to implement this at my home when autumn comes around the corner. I went for the MQTT platform from Mosquitto for packet transportation and Node-RED as my visualization. Compared to Adafruit I have so much more freedom and customizability with with Node-RED both in terms of functionality and looks.

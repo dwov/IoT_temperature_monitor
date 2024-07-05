@@ -239,7 +239,7 @@ The final connections should look something like this, try and make it prettier 
 
 <img src=Images/IMG_3016.jpg width=500>
 
-Here is my development board and all the little things connected.
+Here is my spaghetti of a development board and all the little things connected.
 
 # Chosen platform
 Describe your choice of platform. If you have tried different platforms it can be good to provide a comparison.
@@ -252,10 +252,12 @@ Is your platform based on a local installation or a cloud? Do you plan to use a 
 
 I started the project with my mind set on running everything of my TrueNAS server at my apartmnent. But since it's the summer, I am staying elsewhere and thus I initially went for Adafruit IO as my MQTT broker and visual provider.
 
-While Adafruit was both easy to use and setup I felt that I wanted to challenge myself a little more so I went for a local installation with a future goal to implement this in my home when autumn comes around the corner. I went for the MQTT platform from Mosquitto and Node-RED as my visualization. With this setup I have so much more freedom and customizability with both functionality and looks.
+While Adafruit was both easy to use and setup I felt that I wanted to challenge myself a little more but also increase privacy and security, so I went for a local installation with a plan for the future to implement this at my home when autumn comes around the corner. I went for the MQTT platform from Mosquitto for packet transportation and Node-RED as my visualization. Compared to Adafruit I have so much more freedom and customizability with with Node-RED both in terms of functionality and looks.
+
+With Node-RED, you can install additional modules and nodes which can further increase the functionality of the software. Did I mention, it's completely free! You are in charge of the data and functions.
 
 # The code
-The code in this project serve the purpose of establishing a connection to Wi-Fi and MQTT Broker, collecting sensor data, and transmitting the data to the MQTT broker. If unsucessful with any connection, it will with MQTT, retry connection, and with Wi-Fi or other error, reset the device after 20 seconds. Every loop the micro controller checks the connection to internet and MQTT broker, sends the data to MQTT server and can also receive instructions, but these are not coded yet.
+The code is written in MicroPython and serves the purpose of establishing a connection to Wi-Fi, the MQTT Broker, collecting sensor data, and transmitting the data to the MQTT broker. If unsucessful with any connection, it will retry to connect with MQTT, and with Wi-Fi or other error, reset the device after 20 seconds. Every loop the micro controller checks the connection to internet and MQTT broker, sends the data to MQTT server and can also receive instructions, but these are not coded yet.
 
 - `main.py` contains the core functionalities of collecting and sending data to the broker.
 - `lib/keys.py` stores the credentials and configurations related to Wi-Fi and MQTT.
